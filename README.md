@@ -13,77 +13,86 @@ It handles network failures, rate limits, malformed data, and supports **checkpo
 
 ## 🧩 Architecture
 
+```
 jira-llm-corpus/
 ├── main.py
 ├── config.yaml
 ├── requirements.txt
 ├── scraper/
-│ ├── client.py # Handles Jira REST API calls + retries
-│ ├── pagination.py # JQL pagination + checkpointing
-│ ├── models.py # Pydantic data models for Jira JSON
-│ └── extractor.py # Iterates through projects & issues
+│   ├── client.py          # Handles Jira REST API calls + retries
+│   ├── pagination.py      # JQL pagination + checkpointing
+│   ├── models.py          # Pydantic data models for Jira JSON
+│   └── extractor.py       # Iterates through projects & issues
 ├── transformer/
-│ ├── cleaner.py # Converts HTML to plain text
-│ ├── tasks.py # Summarization, classification, QnA via LLM
-│ └── writer.py # Streams JSONL output
+│   ├── cleaner.py         # Converts HTML to plain text
+│   ├── tasks.py           # Summarization, classification, QnA via LLM
+│   └── writer.py          # Streams JSONL output
 ├── utils/
-│ ├── logger.py # Custom logger
-│ └── checkpoint.py # Save/load scraping progress
-├── checkpoints/ # Resume progress storage
-└── corpus/ # Final LLM-ready dataset
-
-yaml
-Copy code
+│   ├── logger.py          # Custom logger
+│   └── checkpoint.py      # Save/load scraping progress
+├── checkpoints/           # Resume progress storage
+└── corpus/                # Final LLM-ready dataset
+```
 
 ---
 
 ## ⚙️ Setup Instructions
 
-### 1. Clone the Repository
+### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/yourusername/jira-llm-corpus.git
 cd jira-llm-corpus
-2. Create and Activate Virtual Environment
-🪟 On Windows PowerShell
-powershell
-Copy code
+```
+
+### 2️⃣ Create and Activate Virtual Environment
+
+#### 🪟 On Windows PowerShell
+```powershell
 python -m venv .venv
 .venv\Scripts\activate
-🐧 On macOS / Linux
-bash
-Copy code
+```
+
+#### 🐧 On macOS / Linux
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
-3. Install Dependencies
-bash
-Copy code
+```
+
+### 3️⃣ Install Dependencies
+```bash
 pip install -r requirements.txt
-4. Set Your OpenAI API Key
-🪟 Windows PowerShell
-powershell
-Copy code
+```
+
+### 4️⃣ Set Your OpenAI API Key
+
+#### 🪟 Windows PowerShell
+```powershell
 $env:OPENAI_API_KEY = "sk-your_actual_api_key_here"
-🐧 macOS / Linux
-bash
-Copy code
+```
+
+#### 🐧 macOS / Linux
+```bash
 export OPENAI_API_KEY="sk-your_actual_api_key_here"
-▶️ Run the Pipeline
-bash
-Copy code
+```
+
+---
+
+## ▶️ Run the Pipeline
+```bash
 python main.py
+```
+
 ✅ It will:
+1. Scrape issues from Apache Jira projects (based on `config.yaml`)
+2. Clean and transform them into training-ready JSONL
+3. Apply LLM-based summarization and classification
+4. Save outputs to `corpus/`
 
-Scrape issues from Apache Jira projects (based on config.yaml)
+---
 
-Clean and transform them into training-ready JSONL
+## 🧠 Example Corpus Entry
 
-Apply LLM-based summarization and classification
-
-Save outputs to corpus/
-
-🧠 Example Corpus Entry
-json
-Copy code
+```json
 {
   "issue_key": "HADOOP-8",
   "project": "HADOOP",
@@ -106,12 +115,18 @@ Copy code
     }
   }
 }
-🧾 License
-This project is licensed under the MIT License — feel free to use, modify, and extend it.
+```
 
-💡 Notes
-The scraper respects public Jira access limits.
+---
 
-It auto-resumes from the last saved checkpoint in case of failure.
+## 🧾 License
 
-Supports easy extension to other issue trackers.
+This project is licensed under the **MIT License** — feel free to use, modify, and extend it.
+
+---
+
+## 💡 Notes
+
+- The scraper respects public Jira access limits.  
+- It auto-resumes from the last saved checkpoint in case of failure.  
+- Supports easy extension to other issue trackers.

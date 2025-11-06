@@ -1,0 +1,70 @@
+# --------------------------------------------
+# Apache Jira LLM Corpus Builder - .gitignore
+# --------------------------------------------
+
+# 🔹 Python cache & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# 🔹 Virtual environment
+.venv/
+venv/
+env/
+ENV/
+*.env
+.env.local
+.env.*.local
+
+# 🔹 IDE / Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.log
+
+# 🔹 OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 🔹 Checkpoints and intermediate data
+checkpoints/
+logs/
+tmp/
+cache/
+*.checkpoint
+*.tmp
+
+# 🔹 Generated corpora or model outputs
+corpus/
+output/
+data/
+*.jsonl
+*.json
+
+# 🔹 API keys or config files (optional safety)
+config.yaml
+config/*.yaml
+*.key
+*.secret
+*.pem
+
+# 🔹 Notebooks / experiments
+*.ipynb_checkpoints
+*.ipynb~
+
+# 🔹 LLM related temporary or debug outputs
+*.txt
+*.csv
+*.out
+*.md.backup
